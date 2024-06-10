@@ -67,8 +67,18 @@
 </head>
 <body>
     <div id="tabs">
-        <!-- Abas e barra de pesquisa aqui -->
+        <h1>Meu Navegador</h1>
+        <nav>
+            <a href="#">Página 1</a>
+            <a href="#">Página 2</a>
+            <a href="#">Página 3</a>
+        </nav>
+        <form id="search-form" onsubmit="search(event)">
+            <input id="search-input" type="text" name="q" placeholder="Pesquisar no Meu Navegador">
+            <button id="search-button" type="submit">Pesquisar</button>
+        </form>
     </div>
+  
 
     <div id="results"></div>
 
