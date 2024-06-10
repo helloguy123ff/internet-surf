@@ -10,6 +10,7 @@
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            background-image: url('fundo.jpg'); 
             text-align: center;
         }
 
@@ -76,33 +77,34 @@
     <div id="results"></div>
 
     <script>
-        var data = [
-            { title: "Exemplo 1", url: "https://www.example.com/result1", description: "Descrição do exemplo 1" },
-            { title: "Exemplo 2", url: "https://www.example.com/result2", description: "Descrição do exemplo 2" },
-            { title: "Exemplo 3", url: "https://www.example.com/result3", description: "Descrição do exemplo 3" }
-        ];
+        const API_KEY = 'YOUR_API_KEY'; // Substitua pela sua chave de API do Google
+        const CX = 'YOUR_CX'; // Substitua pelo seu ID de mecanismo de pesquisa personalizado
 
         function search(event) {
             event.preventDefault();
-            var query = document.getElementById('search-input').value.toLowerCase();
-            var filteredData = data.filter(function(item) {
-                return item.title.toLowerCase().includes(query) || item.description.toLowerCase().includes(query);
-            });
-            renderResults(filteredData);
+            const query = document.getElementById('search-input').value;
+            const url = `https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=${CX}&q=${query}`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    renderResults(data.items);
+                })
+                .catch(error => console.error('Error:', error));
         }
 
         function renderResults(results) {
-            var resultsContainer = document.getElementById('results');
+            const resultsContainer = document.getElementById('results');
             resultsContainer.innerHTML = '';
-            if (results.length === 0) {
+            if (!results || results.length === 0) {
                 resultsContainer.innerHTML = '<p>Nenhum resultado encontrado.</p>';
             } else {
-                results.forEach(function(item) {
-                    var resultDiv = document.createElement('div');
+                results.forEach(item => {
+                    const resultDiv = document.createElement('div');
                     resultDiv.className = 'result';
                     resultDiv.innerHTML = `
-                        <h3><a href="${item.url}" target="_blank">${item.title}</a></h3>
-                        <p>${item.description}</p>
+                        <h3><a href="${item.link}" target="_blank">${item.title}</a></h3>
+                        <p>${item.snippet}</p>
                     `;
                     resultsContainer.appendChild(resultDiv);
                 });
@@ -111,11 +113,11 @@
 
         // Função para pesquisa por voz
         function voiceSearch() {
-            var recognition = new webkitSpeechRecognition(); // Criar objeto de reconhecimento de voz
+            const recognition = new webkitSpeechRecognition(); // Criar objeto de reconhecimento de voz
             recognition.lang = 'pt-BR'; // Configurar idioma para português (Brasil)
 
             recognition.onresult = function(event) {
-                var voiceQuery = event.results[0][0].transcript; // Obter a transcrição da voz
+                const voiceQuery = event.results[0][0].transcript; // Obter a transcrição da voz
                 document.getElementById('search-input').value = voiceQuery; // Definir a consulta na barra de pesquisa
                 search(event); // Realizar a pesquisa
             };
@@ -128,3 +130,6 @@
     </script>
 </body>
 </html>
+
+
+   
