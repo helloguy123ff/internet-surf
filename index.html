@@ -40,8 +40,7 @@
             width: 300px; /* Ajuste conforme necessário */
         }
 
-        #search-button,
-        #lucky-button {
+        #search-button {
             padding: 8px 15px;
             border: none;
             border-radius: 5px;
@@ -49,9 +48,8 @@
             color: white;
             cursor: pointer;
         }
-        
-        #search-button:hover,
-        #lucky-button:hover {
+
+        #search-button:hover {
             background-color: #0056b3;
         }
 
@@ -72,15 +70,18 @@
         .tab:hover {
             background-color: #ccc;
         }
+
+        #search-results {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div id="header">
         <img id="logo" src="logo.png" alt="Logo"> <!-- Sua logo -->
-        <form id="search-form" action="https://www.google.com/search" method="GET">
-            <input id="search-input" type="text" name="q" placeholder="Pesquisar no Google">
+        <form id="search-form" onsubmit="search(event)">
+            <input id="search-input" type="text" name="q" placeholder="Pesquisar no Meu Navegador">
             <button id="search-button" type="submit">Pesquisar</button>
-            <button id="lucky-button" type="button" onclick="luckySearch()">Estou com sorte</button>
         </form>
     </div>
     <div id="tabs">
@@ -90,10 +91,22 @@
         <div class="tab">Imagens</div>
         <div class="tab">Mais</div>
     </div>
+    <div id="search-results"></div>
 
     <script>
-        function luckySearch() {
-            window.location.href = 'https://www.google.com/doodles/';
+        function search(event) {
+            event.preventDefault();
+            var query = document.getElementById('search-input').value;
+            var resultsDiv = document.getElementById('search-results');
+            // Simulação de resultados da pesquisa
+            resultsDiv.innerHTML = `
+                <h2>Resultados da Pesquisa para: ${query}</h2>
+                <ul>
+                    <li>Resultado 1</li>
+                    <li>Resultado 2</li>
+                    <li>Resultado 3</li>
+                </ul>
+            `;
         }
     </script>
 </body>
