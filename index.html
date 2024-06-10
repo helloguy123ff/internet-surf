@@ -67,69 +67,49 @@
 </head>
 <body>
     <div id="tabs">
-        <h1>Meu Navegador</h1>
-        <nav>
-            <a href="#">Página 1</a>
-            <a href="#">Página 2</a>
-            <a href="#">Página 3</a>
-        </nav>
-        <form id="search-form" onsubmit="search(event)">
-            <input id="search-input" type="text" name="q" placeholder="Pesquisar no Meu Navegador">
-            <button id="search-button" type="submit">Pesquisar</button>
-        </form>
+        <!-- Abas e barra de pesquisa aqui -->
     </div>
 
+    <div id="results"></div>
+
     <script>
+        var data = [
+            { title: "Exemplo 1", url: "https://www.example.com/result1", description: "Descrição do exemplo 1" },
+            { title: "Exemplo 2", url: "https://www.example.com/result2", description: "Descrição do exemplo 2" },
+            { title: "Exemplo 3", url: "https://www.example.com/result3", description: "Descrição do exemplo 3" }
+        ];
+
         function search(event) {
             event.preventDefault();
-            var query = document.getElementById('search-input').value;
-            // Abre um pop-up com os resultados da pesquisa
-            var popup = window.open("", "_blank", "width=600,height=400");
-            var resultsHtml = `
-                <h2>Resultados da Pesquisa para: ${query}</h2>
-                <ul>
-                    <li>Resultado 1</li>
-                    <li>Resultado 2</li>
-                    <li>Resultado 3</li>
-                </ul>
-            `;
-            popup.document.write(`
-                <html>
-                <head>
-                    <title>Resultados da Pesquisa</title>
-                    <style>
-                        body {
-                            margin: 0;
-                            padding: 20px;
-                            font-family: Arial, sans-serif;
-                        }
+            var query = document.getElementById('search-input').value.toLowerCase();
+            var results = document.getElementById('results');
+            var filteredData = data.filter(function(item) {
+                return item.title.toLowerCase().includes(query) || item.description.toLowerCase().includes(query);
+            });
+            renderResults(filteredData);
+        }
 
-                        h2 {
-                            margin-top: 0;
-                        }
-
-                        ul {
-                            list-style-type: none;
-                            padding: 0;
-                        }
-
-                        li {
-                            margin-bottom: 10px;
-                            padding: 10px;
-                            border-radius: 5px;
-                            background-color: #ffffff;
-                            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-                        }
-                    </style>
-                </head>
-                <body>
-                    ${resultsHtml}
-                </body>
-                </html>
-            `);
+        function renderResults(results) {
+            var resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = '';
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<p>Nenhum resultado encontrado.</p>';
+            } else {
+                var ul = document.createElement('ul');
+                results.forEach(function(item) {
+                    var li = document.createElement('li');
+                    var a = document.createElement('a');
+                    a.href = item.url;
+                    a.textContent = item.title;
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                });
+                resultsContainer.appendChild(ul);
+            }
         }
     </script>
 </body>
+</html> 
 </html>
 
  
