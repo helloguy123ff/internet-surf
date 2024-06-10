@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Navegador</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('fundo.jpg'); /* Sua imagem de fundo */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        #header {
+            background-color: #f8f9fa;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        #logo {
+            width: 150px; /* Ajuste conforme necessário */
+            height: auto;
+        }
+
+        #search-form {
+            margin-left: auto;
+            display: flex;
+        }
+
+        #search-input {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 5px;
+            width: 300px; /* Ajuste conforme necessário */
+        }
+
+        #search-button,
+        #lucky-button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        #search-button:hover,
+        #lucky-button:hover {
+            background-color: #0056b3;
+        }
+
+        #tabs {
+            background-color: #f8f9fa;
+            padding: 10px;
+            display: flex;
+        }
+
+        .tab {
+            padding: 5px 10px;
+            margin-right: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .tab:hover {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <img id="logo" src="logo.png" alt="Logo"> <!-- Sua logo -->
+        <form id="search-form" action="https://www.google.com/search" method="GET">
+            <input id="search-input" type="text" name="q" placeholder="Pesquisar no Google">
+            <button id="search-button" type="submit">Pesquisar</button>
+            <button id="lucky-button" type="button" onclick="luckySearch()">Estou com sorte</button>
+        </form>
+    </div>
+    <div id="tabs">
+        <div class="tab">Página Inicial</div>
+        <div class="tab">Notícias</div>
+        <div class="tab">Vídeos</div>
+        <div class="tab">Imagens</div>
+        <div class="tab">Mais</div>
+    </div>
+
+    <script>
+        function luckySearch() {
+            window.location.href = 'https://www.google.com/doodles/';
+        }
+    </script>
+</body>
+</html>
