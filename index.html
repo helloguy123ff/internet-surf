@@ -9,7 +9,8 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #f1f1f1;
+            background-image: url('fundo.jpg'); /* Substitua 'fundo.jpg' pelo caminho da sua imagem de fundo */
+            background-size: cover;
         }
 
         #tabs {
@@ -49,11 +50,29 @@
             cursor: pointer;
             margin-left: 5px;
         }
+
+        #tabs a {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 12px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            margin-right: 10px;
+        }
+
+        #tabs a:hover {
+            background-color: #e9ecef;
+        }
     </style>
 </head>
 <body>
     <div id="tabs">
         <h1>Meu Navegador</h1>
+        <nav>
+            <a href="#">Página 1</a>
+            <a href="#">Página 2</a>
+            <a href="#">Página 3</a>
+        </nav>
         <form id="search-form" onsubmit="search(event)">
             <input id="search-input" type="text" name="q" placeholder="Pesquisar no Meu Navegador">
             <button id="search-button" type="submit">Pesquisar</button>
@@ -113,4 +132,5 @@
 </body>
 </html>
 
+ 
 
