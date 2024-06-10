@@ -6,70 +6,73 @@
     <title>Meu Navegador</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            background-image: url('fundo.jpg'); /* Substitua 'fundo.jpg' pelo caminho da sua imagem de fundo */
-            background-size: cover;
+            text-align: center;
         }
 
         #tabs {
-            background-color: #ffffff;
-            padding: 10px 20px;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            z-index: 1;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
         }
 
-        #tabs h1 {
-            margin: 0;
-        }
-
-        #search-form {
-            display: flex;
-            align-items: center;
+        #search-container {
+            margin: 20px;
         }
 
         #search-input {
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #dfe1e5;
-            width: 500px;
+            padding: 10px;
+            width: 300px;
             font-size: 16px;
         }
 
-        #search-button {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: #f8f9fa;
+        #search-button, #voice-search-button {
+            padding: 10px;
+            font-size: 16px;
             cursor: pointer;
-            margin-left: 5px;
         }
 
-        #tabs a {
-            text-decoration: none;
-            color: #333;
-            padding: 8px 12px;
+        #results {
+            margin: 20px;
+            text-align: left;
+        }
+
+        .result {
+            background-color: #fff;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            background-color: #f8f9fa;
-            margin-right: 10px;
+            width: 80%;
         }
 
-        #tabs a:hover {
-            background-color: #e9ecef;
+        .result h3 a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .result h3 a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div id="tabs">
-        <!-- Abas e barra de pesquisa aqui -->
+        <div id="logo">
+            <img src="logo.png" alt="Logo" style="height: 40px;">
+        </div>
+        <div id="search-container">
+            <input type="text" id="search-input" placeholder="Pesquisar...">
+            <button id="search-button" onclick="search(event)">Pesquisar</button>
+            <button id="voice-search-button">🔊</button>
+        </div>
     </div>
-
+    
     <div id="results"></div>
 
     <script>
@@ -96,7 +99,7 @@
             } else {
                 results.forEach(function(item) {
                     var resultDiv = document.createElement('div');
-                    resultDiv.classList.add('result');
+                    resultDiv.className = 'result';
                     resultDiv.innerHTML = `
                         <h3><a href="${item.url}" target="_blank">${item.title}</a></h3>
                         <p>${item.description}</p>
@@ -109,7 +112,7 @@
         // Função para pesquisa por voz
         function voiceSearch() {
             var recognition = new webkitSpeechRecognition(); // Criar objeto de reconhecimento de voz
-            recognition.lang = 'en-US'; // Configurar idioma para inglês (EUA)
+            recognition.lang = 'pt-BR'; // Configurar idioma para português (Brasil)
 
             recognition.onresult = function(event) {
                 var voiceQuery = event.results[0][0].transcript; // Obter a transcrição da voz
