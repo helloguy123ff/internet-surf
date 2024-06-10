@@ -9,97 +9,64 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-image: url('fundo.jpg'); /* Sua imagem de fundo */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background-color: #f1f1f1;
         }
 
-        #header {
-            background-color: #f8f9fa;
-            padding: 10px;
+        #tabs {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1;
             display: flex;
+            justify-content: space-between;
             align-items: center;
         }
 
-        #logo {
-            width: 150px; /* Ajuste conforme necessário */
-            height: auto;
+        #tabs h1 {
+            margin: 0;
         }
 
         #search-form {
-            margin-left: auto;
             display: flex;
+            align-items: center;
         }
 
         #search-input {
             padding: 8px;
             border-radius: 5px;
-            border: 1px solid #ccc;
-            margin-right: 5px;
-            width: 300px; /* Ajuste conforme necessário */
+            border: 1px solid #dfe1e5;
+            width: 500px;
+            font-size: 16px;
         }
 
         #search-button {
             padding: 8px 15px;
             border: none;
             border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-        }
-
-        #search-button:hover {
-            background-color: #0056b3;
-        }
-
-        #tabs {
             background-color: #f8f9fa;
-            padding: 10px;
-            display: flex;
-        }
-
-        .tab {
-            padding: 5px 10px;
-            margin-right: 10px;
-            background-color: #ddd;
-            border-radius: 5px;
             cursor: pointer;
-        }
-
-        .tab:hover {
-            background-color: #ccc;
-        }
-
-        #search-results {
-            margin-top: 20px;
+            margin-left: 5px;
         }
     </style>
 </head>
 <body>
-    <div id="header">
-        <img id="logo" src="logo.png" alt="Logo"> <!-- Sua logo -->
+    <div id="tabs">
+        <h1>Meu Navegador</h1>
         <form id="search-form" onsubmit="search(event)">
             <input id="search-input" type="text" name="q" placeholder="Pesquisar no Meu Navegador">
             <button id="search-button" type="submit">Pesquisar</button>
         </form>
     </div>
-    <div id="tabs">
-        <div class="tab">Página Inicial</div>
-        <div class="tab">Notícias</div>
-        <div class="tab">Vídeos</div>
-        <div class="tab">Imagens</div>
-        <div class="tab">Mais</div>
-    </div>
-    <div id="search-results"></div>
 
     <script>
         function search(event) {
             event.preventDefault();
             var query = document.getElementById('search-input').value;
-            var resultsDiv = document.getElementById('search-results');
-            // Simulação de resultados da pesquisa
-            resultsDiv.innerHTML = `
+            // Abre um pop-up com os resultados da pesquisa
+            var popup = window.open("", "_blank", "width=600,height=400");
+            var resultsHtml = `
                 <h2>Resultados da Pesquisa para: ${query}</h2>
                 <ul>
                     <li>Resultado 1</li>
@@ -107,7 +74,9 @@
                     <li>Resultado 3</li>
                 </ul>
             `;
+            popup.document.write(resultsHtml);
         }
     </script>
 </body>
 </html>
+
