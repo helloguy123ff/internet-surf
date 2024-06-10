@@ -5,80 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Navegador</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-image: url('fundo.jpg'); /* Substitua 'fundo.jpg' pelo caminho da sua imagem de fundo */
-            background-size: cover;
-        }
-
-        #tabs {
-            background-color: #ffffff;
-            padding: 10px 20px;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            z-index: 1;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        #tabs h1 {
-            margin: 0;
-        }
-
-        #search-form {
-            display: flex;
-            align-items: center;
-        }
-
-        #search-input {
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #dfe1e5;
-            width: 500px;
-            font-size: 16px;
-        }
-
-        #search-button {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: #f8f9fa;
-            cursor: pointer;
-            margin-left: 5px;
-        }
-
-        #tabs a {
-            text-decoration: none;
-            color: #333;
-            padding: 8px 12px;
-            border-radius: 5px;
-            background-color: #f8f9fa;
-            margin-right: 10px;
-        }
-
-        #tabs a:hover {
-            background-color: #e9ecef;
-        }
+        /* Estilos aqui */
     </style>
 </head>
 <body>
     <div id="tabs">
-        <h1>Meu Navegador</h1>
-        <nav>
-            <a href="#">Página 1</a>
-            <a href="#">Página 2</a>
-            <a href="#">Página 3</a>
-        </nav>
-        <form id="search-form" onsubmit="search(event)">
-            <input id="search-input" type="text" name="q" placeholder="Pesquisar no Meu Navegador">
-            <button id="search-button" type="submit">Pesquisar</button>
-        </form>
+        <!-- Abas e barra de pesquisa aqui -->
     </div>
-  
 
     <div id="results"></div>
 
@@ -92,7 +25,6 @@
         function search(event) {
             event.preventDefault();
             var query = document.getElementById('search-input').value.toLowerCase();
-            var results = document.getElementById('results');
             var filteredData = data.filter(function(item) {
                 return item.title.toLowerCase().includes(query) || item.description.toLowerCase().includes(query);
             });
@@ -105,22 +37,36 @@
             if (results.length === 0) {
                 resultsContainer.innerHTML = '<p>Nenhum resultado encontrado.</p>';
             } else {
-                var ul = document.createElement('ul');
                 results.forEach(function(item) {
-                    var li = document.createElement('li');
-                    var a = document.createElement('a');
-                    a.href = item.url;
-                    a.textContent = item.title;
-                    li.appendChild(a);
-                    ul.appendChild(li);
+                    var resultDiv = document.createElement('div');
+                    resultDiv.classList.add('result');
+                    resultDiv.innerHTML = `
+                        <h3><a href="${item.url}" target="_blank">${item.title}</a></h3>
+                        <p>${item.description}</p>
+                    `;
+                    resultsContainer.appendChild(resultDiv);
                 });
-                resultsContainer.appendChild(ul);
             }
         }
+
+        // Função para pesquisa por voz
+        function voiceSearch() {
+            var recognition = new webkitSpeechRecognition(); // Criar objeto de reconhecimento de voz
+            recognition.lang = 'en-US'; // Configurar idioma para inglês (EUA)
+
+            recognition.onresult = function(event) {
+                var voiceQuery = event.results[0][0].transcript; // Obter a transcrição da voz
+                document.getElementById('search-input').value = voiceQuery; // Definir a consulta na barra de pesquisa
+                search(event); // Realizar a pesquisa
+            };
+
+            recognition.start(); // Iniciar o reconhecimento de voz
+        }
+
+        // Associar a função de pesquisa por voz a um botão ou evento de clique
+        document.getElementById('voice-search-button').addEventListener('click', voiceSearch);
     </script>
 </body>
-</html> 
 </html>
 
- 
 
